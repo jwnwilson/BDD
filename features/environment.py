@@ -62,7 +62,6 @@ def after_scenario(context, scenario):
             import ipdb
             ipdb.set_trace()  # noqa
 
-    context.fountain.stop_server()
     context.driver.close()
     # context.driver.delete_all_cookies()
     # context.driver.execute_script("window.localStorage.clear();")
@@ -113,9 +112,7 @@ def __configure_selenium_driver(logger):
 
 def __take_screenshot(logger, driver, name):
     filename = "screenshots/{}.png".format(name.lower().replace(' ', '_'))
-    screenshot = driver.get_screenshot_as_base64()
-    with open(filename, 'wb') as fd:
-        fd.write(screenshot.decode('base64'))
+    screenshot = driver.save_screenshot(filename)
     logger.info(
         "Took screenshot of failing scenario to '{}'".format(filename)
     )

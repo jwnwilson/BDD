@@ -13,37 +13,36 @@ def go_to(context, page):
     context.get_page(page).go_to_page()
 
 
-@When('I search on {application} {page} page with {query} {parameter}')
-def go_to_and_search(context, application, page, query, parameter):
-    pageUrl = context.get_page(application, page).url
+@When('I search on {page} page with {query} {parameter}')
+def go_to_and_search(context, page, query, parameter):
+    pageUrl = context.get_page(page).url
     url = pageUrl + '?' + urllib.parse.urlencode({parameter: query})
-    context.get_page(application, page).go_to_link(url)
+    context.get_page(page).go_to_link(url)
 
 
-@When('I am redirected to the {application} {page} page')
-def redirect_to(context, application, page):
-    context.get_page(application, page).go_to_page()
+@When('I am redirected to the {page} page')
+def redirect_to(context, page):
+    context.get_page(page).go_to_page()
 
 
-@When('I click "{text}" on the {application} {page} page')
-@When('I click on "{text}" on the {application} {page} page')
-def click_on_text(context, text, application, page):
-    context.get_page(application, page).click_on_text(text)
+@When('I click on "{text}" on the {page} page')
+def click_on_text(context, text, page):
+    context.get_page(page).click_on_text(text)
 
 
-@When('I hit enter on "{text}" on the {application} {page} page')
-def enter_on_text(context, text, application, page):
-    context.get_page(application, page).enter_on_text(text)
+@When('I hit enter on "{text}" on the {page} page')
+def enter_on_text(context, text, page):
+    context.get_page(page).enter_on_text(text)
 
 
-@Then('I see "{text}" on the {application} {page} page')
-def assert_text(context, text, application, page):
-    context.get_page(application, page).click_on_text(text)
+@Then('I see "{text}" on the {page} page')
+def assert_text(context, text, page):
+    context.get_page(page).click_on_text(text)
 
 
-@Then('I see "{message}" contained on the {application} {page} page')
-def assert_carer_onboarding_status_text(context, message, application, page):
-    driver = context.get_page(application, page).driver
+@Then('I see "{message}" contained on the {page} page')
+def assert_carer_onboarding_status_text(context, message, page):
+    driver = context.get_page(page).driver
     locator = '(//*[contains(normalize-space(.), "{}")])'.format(message)
     try:
         WebDriverWait(
